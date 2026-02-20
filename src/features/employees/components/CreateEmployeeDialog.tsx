@@ -5,8 +5,8 @@ import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle } from
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createEmployee } from "@/redux/employees/employeesSlice";
 import type { EmployeeInput } from "@/types";
-import EmployeeFormFields from "@/components/EmployeeFormFields";
-import { validateEmployeeInput } from "@/lib/validateEmployeeInput";
+import EmployeeFormFields from "./EmployeeFormFields";
+import { validateEmployeeInput } from "../lib/validateEmployeeInput";
 
 type Props = {
   open: boolean;

@@ -1,5 +1,5 @@
-import EmployeesGrid from "@/components/EmployeesDataGrid";
+import EmployeesDataGrid from "@/features/employees/components/EmployeesDataGrid";
 
 export default function Home() {
-  return <EmployeesGrid />;
+  return <EmployeesDataGrid />;
 }
