@@ -28,8 +28,18 @@ After completing the Setup instructions, to run the mock backend (json-server), 
 npm run api
 ```
 
-## Notes
+## Notes & Technical Decisions
 
-- MUI version ^6 was chosen for this submission. To that end, I used Next.js version ^15 as latest stable (version ^16) is not supported by MUI version ^6.
-- json-server was chosen as the mock api backend.
-- https://www.mockaroo.com/ was used to generate the mock data.
+- **MUI version ^6** was chosen for this submission. To that end, I used **Next.js version ^15** as latest stable (version ^16) is not supported by MUI version ^6.
+- **json-server** was chosen as the mock api backend.
+- **Mock data** generated using https://www.mockaroo.com/.
+- **Employee Deletion**.
+
+  This demo performs a hard delete (DELETE /employees/:id) due to the constraints of using a mock backend.
+
+  In a production environment, deletion would typically be implemented as a soft delete. This would include fields such as:
+  - isDeleted
+  - deletedAt
+  - deletedBy
+
+  Soft deletes preserve referential integrity, logs & audit integrity, support debugging, and allow reverting accidental deletions etc.

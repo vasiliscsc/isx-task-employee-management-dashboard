@@ -7,10 +7,15 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { fetchEmployees } from "@/redux/employees/employeesSlice";
 import { Employee } from "@/types";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CreateEmployeeDialog from "./CreateEmployeeDialog";
 import EditEmployeeDialog from "./EditEmployeeDialog";
+import DeleteEmployeeDialog from "./DeleteEmployeeDialog";
 
-function buildEmployeeColumns(openEditDialog: (e: Employee) => void): GridColDef<Employee>[] {
+function buildEmployeeColumns(
+  openEditDialog: (e: Employee) => void,
+  openDeleteDialog: (e: Employee) => void,
+): GridColDef<Employee>[] {
   return [
     { field: "id", headerName: "ID", width: 90 },
     { field: "name", headerName: "Name", flex: 1, minWidth: 160 },
@@ -36,6 +41,13 @@ function buildEmployeeColumns(openEditDialog: (e: Employee) => void): GridColDef
           label="Edit"
           onClick={() => openEditDialog(params.row)}
         />,
+        <GridActionsCellItem
+          key="delete"
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={() => openDeleteDialog(params.row)}
+          showInMenu
+        />,
       ],
     },
   ];
@@ -60,11 +72,17 @@ function useEmployeeDialogs() {
     setActiveDialog("edit");
   }, []);
 
+  const openDeleteDialog = useCallback((e: Employee) => {
+    setSelectedEmployee(e);
+    setActiveDialog("delete");
+  }, []);
+
   return {
     activeDialog,
     selectedEmployee,
     openCreateDialog,
     openEditDialog,
+    openDeleteDialog,
     closeDialog,
   };
 }
@@ -82,9 +100,13 @@ function EmployeeDialogs({ activeDialog, selectedEmployee, onClose }: EmployeeDi
         open={activeDialog === "create"}
         onClose={onClose}
       />
-
       <EditEmployeeDialog
         open={activeDialog === "edit"}
+        onClose={onClose}
+        employee={selectedEmployee}
+      />
+      <DeleteEmployeeDialog
+        open={activeDialog === "delete"}
         onClose={onClose}
         employee={selectedEmployee}
       />
@@ -100,7 +122,8 @@ export default function EmployeesDataGrid() {
 
   const dispatch = useAppDispatch();
   const { items, status, error } = useAppSelector((s) => s.employees);
-  const { activeDialog, selectedEmployee, openCreateDialog, openEditDialog, closeDialog } = useEmployeeDialogs();
+  const { activeDialog, selectedEmployee, openCreateDialog, openEditDialog, openDeleteDialog, closeDialog } =
+    useEmployeeDialogs();
 
   useEffect(() => {
     // status is only idle when employees haven't been fetched yet. Only fetch in that case
@@ -109,7 +132,10 @@ export default function EmployeesDataGrid() {
     }
   }, [dispatch, status]);
 
-  const columns = useMemo(() => buildEmployeeColumns(openEditDialog), [openEditDialog]);
+  const columns = useMemo(
+    () => buildEmployeeColumns(openEditDialog, openDeleteDialog),
+    [openEditDialog, openDeleteDialog],
+  );
 
   return (
     <>

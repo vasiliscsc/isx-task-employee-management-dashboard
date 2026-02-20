@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { Employee, EmployeeInput } from "@/types";
-import { createEmployeeApi, fetchEmployeesApi, updateEmployeeApi } from "@/services/employees";
+import type { Employee, EmployeeId, EmployeeInput } from "@/types";
+import { createEmployeeApi, deleteEmployeeApi, fetchEmployeesApi, updateEmployeeApi } from "@/services/employees";
 
 type EmployeesState = {
   items: Employee[];
@@ -12,6 +12,9 @@ type EmployeesState = {
 
   updateStatus: "idle" | "loading" | "succeeded" | "failed";
   updateError: string | null;
+
+  deleteStatus: "idle" | "loading" | "succeeded" | "failed";
+  deleteError: string | null;
 };
 
 const initialState: EmployeesState = {
@@ -24,6 +27,9 @@ const initialState: EmployeesState = {
 
   updateStatus: "idle",
   updateError: null,
+
+  deleteStatus: "idle",
+  deleteError: null,
 };
 
 export const createEmployee = createAsyncThunk<Employee, EmployeeInput>(
@@ -33,12 +39,17 @@ export const createEmployee = createAsyncThunk<Employee, EmployeeInput>(
   },
 );
 
-export const updateEmployee = createAsyncThunk<Employee, { id: number; changes: EmployeeInput }>(
+export const updateEmployee = createAsyncThunk<Employee, { id: EmployeeId; changes: EmployeeInput }>(
   "employees/updateEmployee",
   async ({ id, changes }) => {
     return await updateEmployeeApi(id, changes);
   },
 );
+
+export const deleteEmployee = createAsyncThunk<EmployeeId, EmployeeId>("employees/deleteEmployee", async (id) => {
+  await deleteEmployeeApi(id);
+  return id;
+});
 
 export const fetchEmployees = createAsyncThunk<Employee[]>("employees/fetchEmployees", async () => {
   return await fetchEmployeesApi();
@@ -89,6 +100,19 @@ const employeesSlice = createSlice({
       .addCase(updateEmployee.rejected, (state, action) => {
         state.updateStatus = "failed";
         state.updateError = action.error.message ?? "Failed to update employee";
+      })
+
+      .addCase(deleteEmployee.pending, (state) => {
+        state.deleteStatus = "loading";
+        state.deleteError = null;
+      })
+      .addCase(deleteEmployee.fulfilled, (state, action) => {
+        state.deleteStatus = "succeeded";
+        state.items = state.items.filter((e) => e.id !== action.payload);
+      })
+      .addCase(deleteEmployee.rejected, (state, action) => {
+        state.deleteStatus = "failed";
+        state.deleteError = action.error.message ?? "Failed to update employee";
       });
   },
 });
