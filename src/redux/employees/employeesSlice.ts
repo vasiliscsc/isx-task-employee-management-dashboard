@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { Employee, EmployeeInput } from "@/types";
-import { createEmployeeApi, fetchEmployeesApi } from "@/services/employees";
+import { createEmployeeApi, fetchEmployeesApi, updateEmployeeApi } from "@/services/employees";
 
 type EmployeesState = {
   items: Employee[];
@@ -9,6 +9,9 @@ type EmployeesState = {
 
   createStatus: "idle" | "loading" | "succeeded" | "failed";
   createError: string | null;
+
+  updateStatus: "idle" | "loading" | "succeeded" | "failed";
+  updateError: string | null;
 };
 
 const initialState: EmployeesState = {
@@ -18,12 +21,22 @@ const initialState: EmployeesState = {
 
   createStatus: "idle",
   createError: null,
+
+  updateStatus: "idle",
+  updateError: null,
 };
 
 export const createEmployee = createAsyncThunk<Employee, EmployeeInput>(
   "employees/createEmployee",
   async (employee) => {
     return await createEmployeeApi(employee);
+  },
+);
+
+export const updateEmployee = createAsyncThunk<Employee, { id: number; changes: EmployeeInput }>(
+  "employees/updateEmployee",
+  async ({ id, changes }) => {
+    return await updateEmployeeApi(id, changes);
   },
 );
 
@@ -62,6 +75,20 @@ const employeesSlice = createSlice({
       .addCase(createEmployee.rejected, (state, action) => {
         state.createStatus = "failed";
         state.createError = action.error.message ?? "Failed to create employee";
+      })
+
+      .addCase(updateEmployee.pending, (state) => {
+        state.updateStatus = "loading";
+        state.updateError = null;
+      })
+      .addCase(updateEmployee.fulfilled, (state, action) => {
+        state.updateStatus = "succeeded";
+        const idx = state.items.findIndex((e) => e.id === action.payload.id);
+        if (idx !== -1) state.items[idx] = action.payload;
+      })
+      .addCase(updateEmployee.rejected, (state, action) => {
+        state.updateStatus = "failed";
+        state.updateError = action.error.message ?? "Failed to update employee";
       });
   },
 });

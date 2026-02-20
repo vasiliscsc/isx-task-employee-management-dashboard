@@ -36,7 +36,7 @@ export default function EmployeeFormFields({
       <TextField
         label="Name"
         value={form.name}
-        onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+        onChange={(e) => setForm((p) => ({ ...p, name: e.target.value.trim() }))}
         onBlur={() => markTouched("name")}
         error={!!touched.name && !!errors.name}
         helperText={touched.name ? errors.name : ""}
@@ -48,7 +48,7 @@ export default function EmployeeFormFields({
       <TextField
         label="Email"
         value={form.email}
-        onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+        onChange={(e) => setForm((p) => ({ ...p, email: e.target.value.trim() }))}
         onBlur={() => markTouched("email")}
         error={!!touched.email && !!errors.email}
         helperText={touched.email ? errors.email : ""}
@@ -59,7 +59,7 @@ export default function EmployeeFormFields({
       <TextField
         label="Position"
         value={form.position}
-        onChange={(e) => setForm((p) => ({ ...p, position: e.target.value }))}
+        onChange={(e) => setForm((p) => ({ ...p, position: e.target.value.trim() }))}
         onBlur={() => markTouched("position")}
         error={!!touched.position && !!errors.position}
         helperText={touched.position ? errors.position : ""}

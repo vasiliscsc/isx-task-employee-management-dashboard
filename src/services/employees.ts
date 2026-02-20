@@ -10,3 +10,8 @@ export async function createEmployeeApi(employee: EmployeeInput): Promise<Employ
   const res = await api.post("/employees", employee);
   return res.data;
 }
+
+export async function updateEmployeeApi(id: number, changes: EmployeeInput): Promise<Employee> {
+  const res = await api.put<Employee>(`/employees/${id}`, changes);
+  return res.data;
+}
