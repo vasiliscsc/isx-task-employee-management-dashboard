@@ -1,6 +1,8 @@
 # Vasilis Nicolaou - iSX Employee Dashboard Home Assignment
 
-This repo was created as a submission to the task given by iSX Financial as part of assessment for the role of Senior Frontend Engineer.
+This repository contains my submission for the home assignment provided by iSX Financial as part of the assessment process for the Senior Frontend Engineer role.
+
+---
 
 ## Setup instructions
 
@@ -10,22 +12,36 @@ This repo was created as a submission to the task given by iSX Financial as part
   npm install
   ```
 
-- Create a `.env.local` file at the root of the project, next to `.env.example`, and copy the contents of `.env.example` to `.env.local`.
+- Create a `.env.local` file at the root of the project (next to `.env.example`) and copy the contents of `.env.example` to `.env.local`.
 
 ## How to run the app
 
-After completing the Setup instructions, to launch the application, run the following command at the root of the project;
+Start the Next.js development server:
 
 ```
 npm run dev
 ```
 
+The application will be available at:
+
+```
+http://localhost:3000
+```
+
 ## How to run mock API
 
-After completing the Setup instructions, to run the mock backend (json-server), run the following command at the root of the project;
+This project uses json-server as a mock backend.
+
+Start the API server with:
 
 ```
 npm run api
+```
+
+The mock API runs at:
+
+```
+http://localhost:3001
 ```
 
 ## Notes & Technical Decisions
