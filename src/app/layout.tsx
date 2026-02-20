@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
+import ReduxStoreProvider from "./ReduxStoreProvider";
 import theme from "@/theme";
 import "./globals.css";
 
@@ -33,7 +34,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <ReduxStoreProvider>{children}</ReduxStoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
