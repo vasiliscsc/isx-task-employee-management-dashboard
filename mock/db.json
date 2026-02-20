@@ -1,3 +1,614 @@
 {
-  "employees": []
+  "employees": [
+    {
+      "id": 1,
+      "name": "Lemuel Seeley",
+      "email": "lseeley0@google.com.au",
+      "position": "Safety Technician II",
+      "salary": 72877
+    },
+    {
+      "id": 2,
+      "name": "Lorna Mullan",
+      "email": "lmullan1@yandex.ru",
+      "position": "Senior Financial Analyst",
+      "salary": 73568
+    },
+    { "id": 3, "name": "Ciel Rees", "email": "crees2@chron.com", "position": "Research Nurse", "salary": 92385 },
+    {
+      "id": 4,
+      "name": "Carolann Reddan",
+      "email": "creddan3@archive.org",
+      "position": "Assistant Manager",
+      "salary": 84270
+    },
+    {
+      "id": 5,
+      "name": "Betteanne Guillou",
+      "email": "bguillou4@tinypic.com",
+      "position": "Analog Circuit Design manager",
+      "salary": 80182
+    },
+    {
+      "id": 6,
+      "name": "Elly Triplow",
+      "email": "etriplow5@prlog.org",
+      "position": "Director of Sales",
+      "salary": 38894
+    },
+    {
+      "id": 7,
+      "name": "Yorgo McWhin",
+      "email": "ymcwhin6@census.gov",
+      "position": "Automation Specialist IV",
+      "salary": 30973
+    },
+    { "id": 8, "name": "Dael Jandl", "email": "djandl7@smugmug.com", "position": "Financial Analyst", "salary": 79935 },
+    {
+      "id": 9,
+      "name": "Edgardo Barrott",
+      "email": "ebarrott8@fema.gov",
+      "position": "Civil Engineer",
+      "salary": 56147
+    },
+    {
+      "id": 10,
+      "name": "Janetta Peirpoint",
+      "email": "jpeirpoint9@etsy.com",
+      "position": "Accountant IV",
+      "salary": 55576
+    },
+    {
+      "id": 11,
+      "name": "Falkner Buglass",
+      "email": "fbuglassa@printfriendly.com",
+      "position": "Professor",
+      "salary": 28907
+    },
+    {
+      "id": 12,
+      "name": "Michaeline Lubomirski",
+      "email": "mlubomirskib@mozilla.com",
+      "position": "Project Manager",
+      "salary": 57601
+    },
+    {
+      "id": 13,
+      "name": "Verge Mc Caughen",
+      "email": "vmcc@yelp.com",
+      "position": "Mechanical Systems Engineer",
+      "salary": 81539
+    },
+    {
+      "id": 14,
+      "name": "Alessandro Myerscough",
+      "email": "amyerscoughd@techcrunch.com",
+      "position": "Software Engineer IV",
+      "salary": 15930
+    },
+    {
+      "id": 15,
+      "name": "Skye Shipton",
+      "email": "sshiptone@latimes.com",
+      "position": "Compensation Analyst",
+      "salary": 56477
+    },
+    {
+      "id": 16,
+      "name": "Shell Wombwell",
+      "email": "swombwellf@si.edu",
+      "position": "Internal Auditor",
+      "salary": 43167
+    },
+    {
+      "id": 17,
+      "name": "Charley Vasovic",
+      "email": "cvasovicg@surveymonkey.com",
+      "position": "Senior Editor",
+      "salary": 12514
+    },
+    {
+      "id": 18,
+      "name": "Luce Westmancoat",
+      "email": "lwestmancoath@pagesperso-orange.fr",
+      "position": "Actuary",
+      "salary": 37620
+    },
+    { "id": 19, "name": "Yul Breydin", "email": "ybreydini@soup.io", "position": "Teacher", "salary": 76763 },
+    { "id": 20, "name": "Sam Slowan", "email": "sslowanj@mozilla.com", "position": "Senior Editor", "salary": 12386 },
+    {
+      "id": 21,
+      "name": "Cameron O'Kinedy",
+      "email": "cokinedyk@prweb.com",
+      "position": "Nuclear Power Engineer",
+      "salary": 99307
+    },
+    {
+      "id": 22,
+      "name": "Linet Sorsby",
+      "email": "lsorsbyl@nhs.uk",
+      "position": "Mechanical Systems Engineer",
+      "salary": 46360
+    },
+    {
+      "id": 23,
+      "name": "Hedwig Wattingham",
+      "email": "hwattinghamm@yelp.com",
+      "position": "Director of Sales",
+      "salary": 70310
+    },
+    {
+      "id": 24,
+      "name": "Lennard Yaxley",
+      "email": "lyaxleyn@fc2.com",
+      "position": "Sales Representative",
+      "salary": 45558
+    },
+    {
+      "id": 25,
+      "name": "Ezra Berzons",
+      "email": "eberzonso@yolasite.com",
+      "position": "Compensation Analyst",
+      "salary": 37460
+    },
+    {
+      "id": 26,
+      "name": "Calla Catlin",
+      "email": "ccatlinp@youtu.be",
+      "position": "Marketing Assistant",
+      "salary": 37509
+    },
+    {
+      "id": 27,
+      "name": "Andrei Senechell",
+      "email": "asenechellq@hud.gov",
+      "position": "Graphic Designer",
+      "salary": 62244
+    },
+    {
+      "id": 28,
+      "name": "Coreen Langstrath",
+      "email": "clangstrathr@opensource.org",
+      "position": "Account Coordinator",
+      "salary": 13458
+    },
+    {
+      "id": 29,
+      "name": "Babara McFade",
+      "email": "bmcfades@bloomberg.com",
+      "position": "Associate Professor",
+      "salary": 66072
+    },
+    {
+      "id": 30,
+      "name": "Con Budgett",
+      "email": "cbudgettt@skyrock.com",
+      "position": "Analog Circuit Design manager",
+      "salary": 27205
+    },
+    {
+      "id": 31,
+      "name": "Bradley Tocqueville",
+      "email": "btocquevilleu@upenn.edu",
+      "position": "Senior Sales Associate",
+      "salary": 29011
+    },
+    {
+      "id": 32,
+      "name": "Parrnell Bootell",
+      "email": "pbootellv@sina.com.cn",
+      "position": "Assistant Media Planner",
+      "salary": 28793
+    },
+    {
+      "id": 33,
+      "name": "Fletch Auty",
+      "email": "fautyw@people.com.cn",
+      "position": "Financial Analyst",
+      "salary": 25573
+    },
+    {
+      "id": 34,
+      "name": "Kira Scutchings",
+      "email": "kscutchingsx@stumbleupon.com",
+      "position": "Geological Engineer",
+      "salary": 69214
+    },
+    {
+      "id": 35,
+      "name": "Georgeanna Dow",
+      "email": "gdowy@nifty.com",
+      "position": "Occupational Therapist",
+      "salary": 88219
+    },
+    {
+      "id": 36,
+      "name": "Elladine Fidgeon",
+      "email": "efidgeonz@aol.com",
+      "position": "Analyst Programmer",
+      "salary": 78033
+    },
+    {
+      "id": 37,
+      "name": "Loni Crippes",
+      "email": "lcrippes10@furl.net",
+      "position": "Environmental Tech",
+      "salary": 54720
+    },
+    {
+      "id": 38,
+      "name": "Fergus Aldhous",
+      "email": "faldhous11@bing.com",
+      "position": "Project Manager",
+      "salary": 13231
+    },
+    {
+      "id": 39,
+      "name": "Novelia Jonathon",
+      "email": "njonathon12@technorati.com",
+      "position": "Senior Cost Accountant",
+      "salary": 58000
+    },
+    { "id": 40, "name": "Eddi Yuille", "email": "eyuille13@wikimedia.org", "position": "Pharmacist", "salary": 96583 },
+    {
+      "id": 41,
+      "name": "Elwin Dorning",
+      "email": "edorning14@omniture.com",
+      "position": "VP Marketing",
+      "salary": 30954
+    },
+    {
+      "id": 42,
+      "name": "Stormi Rojas",
+      "email": "srojas15@huffingtonpost.com",
+      "position": "Statistician IV",
+      "salary": 33586
+    },
+    {
+      "id": 43,
+      "name": "Mychal Arthey",
+      "email": "marthey16@tuttocitta.it",
+      "position": "Web Designer II",
+      "salary": 80231
+    },
+    {
+      "id": 44,
+      "name": "Ryan Heino",
+      "email": "rheino17@list-manage.com",
+      "position": "Speech Pathologist",
+      "salary": 33940
+    },
+    {
+      "id": 45,
+      "name": "Heida Walklot",
+      "email": "hwalklot18@geocities.jp",
+      "position": "Programmer III",
+      "salary": 54131
+    },
+    {
+      "id": 46,
+      "name": "Hilary Suthren",
+      "email": "hsuthren19@twitter.com",
+      "position": "Budget/Accounting Analyst II",
+      "salary": 54687
+    },
+    {
+      "id": 47,
+      "name": "Tadio Fessier",
+      "email": "tfessier1a@a8.net",
+      "position": "Physical Therapy Assistant",
+      "salary": 48812
+    },
+    { "id": 48, "name": "Annamaria Symon", "email": "asymon1b@flavors.me", "position": "Developer I", "salary": 33351 },
+    {
+      "id": 49,
+      "name": "Joice Lansly",
+      "email": "jlansly1c@godaddy.com",
+      "position": "Assistant Professor",
+      "salary": 63289
+    },
+    {
+      "id": 50,
+      "name": "Jacquenetta Lightbody",
+      "email": "jlightbody1d@posterous.com",
+      "position": "Help Desk Technician",
+      "salary": 33203
+    },
+    {
+      "id": 51,
+      "name": "Grannie Veljes",
+      "email": "gveljes1e@apple.com",
+      "position": "Sales Representative",
+      "salary": 84515
+    },
+    {
+      "id": 52,
+      "name": "Kordula Vannozzii",
+      "email": "kvannozzii1f@wordpress.com",
+      "position": "Computer Systems Analyst II",
+      "salary": 94158
+    },
+    {
+      "id": 53,
+      "name": "Stafani Moncey",
+      "email": "smoncey1g@istockphoto.com",
+      "position": "Chief Design Engineer",
+      "salary": 73600
+    },
+    {
+      "id": 54,
+      "name": "Nerty Gisburne",
+      "email": "ngisburne1h@drupal.org",
+      "position": "Safety Technician II",
+      "salary": 34381
+    },
+    { "id": 55, "name": "Lewes Debow", "email": "ldebow1i@reference.com", "position": "Geologist I", "salary": 13573 },
+    {
+      "id": 56,
+      "name": "Elyse Raffon",
+      "email": "eraffon1j@utexas.edu",
+      "position": "Financial Advisor",
+      "salary": 77209
+    },
+    {
+      "id": 57,
+      "name": "Erick Bennoe",
+      "email": "ebennoe1k@topsy.com",
+      "position": "Mechanical Systems Engineer",
+      "salary": 22141
+    },
+    {
+      "id": 58,
+      "name": "Staffard Hurst",
+      "email": "shurst1l@cbsnews.com",
+      "position": "Environmental Specialist",
+      "salary": 21929
+    },
+    { "id": 59, "name": "Cletus Noon", "email": "cnoon1m@utexas.edu", "position": "Health Coach II", "salary": 80659 },
+    {
+      "id": 60,
+      "name": "Hallsy Littefair",
+      "email": "hlittefair1n@ow.ly",
+      "position": "Statistician I",
+      "salary": 85706
+    },
+    {
+      "id": 61,
+      "name": "Angelika Kohrs",
+      "email": "akohrs1o@flickr.com",
+      "position": "Junior Executive",
+      "salary": 67338
+    },
+    {
+      "id": 62,
+      "name": "Vasili Merkle",
+      "email": "vmerkle1p@woothemes.com",
+      "position": "Executive Secretary",
+      "salary": 77991
+    },
+    {
+      "id": 63,
+      "name": "Damon Nulty",
+      "email": "dnulty1q@marketwatch.com",
+      "position": "Geological Engineer",
+      "salary": 45361
+    },
+    {
+      "id": 64,
+      "name": "Bronnie Stanyard",
+      "email": "bstanyard1r@wix.com",
+      "position": "Internal Auditor",
+      "salary": 62428
+    },
+    { "id": 65, "name": "Mano Kuhnt", "email": "mkuhnt1s@ox.ac.uk", "position": "Food Chemist", "salary": 37467 },
+    {
+      "id": 66,
+      "name": "Phylis Reckless",
+      "email": "preckless1t@nyu.edu",
+      "position": "Database Administrator I",
+      "salary": 57141
+    },
+    {
+      "id": 67,
+      "name": "Nicky Hanselmann",
+      "email": "nhanselmann1u@mapquest.com",
+      "position": "Human Resources Manager",
+      "salary": 58005
+    },
+    {
+      "id": 68,
+      "name": "Grady Proctor",
+      "email": "gproctor1v@yale.edu",
+      "position": "Accounting Assistant III",
+      "salary": 33735
+    },
+    {
+      "id": 69,
+      "name": "Anita Villaron",
+      "email": "avillaron1w@pcworld.com",
+      "position": "Electrical Engineer",
+      "salary": 58636
+    },
+    {
+      "id": 70,
+      "name": "Mateo Cabrer",
+      "email": "mcabrer1x@geocities.jp",
+      "position": "Environmental Specialist",
+      "salary": 63573
+    },
+    {
+      "id": 71,
+      "name": "Avivah Merrin",
+      "email": "amerrin1y@mapy.cz",
+      "position": "Research Associate",
+      "salary": 56526
+    },
+    { "id": 72, "name": "Merilyn Bener", "email": "mbener1z@yolasite.com", "position": "VP Sales", "salary": 35141 },
+    {
+      "id": 73,
+      "name": "Chickie Meriott",
+      "email": "cmeriott20@wikimedia.org",
+      "position": "Information Systems Manager",
+      "salary": 41864
+    },
+    {
+      "id": 74,
+      "name": "Cherri Chillingsworth",
+      "email": "cchillingsworth21@moonfruit.com",
+      "position": "Sales Representative",
+      "salary": 98220
+    },
+    {
+      "id": 75,
+      "name": "Zebadiah Cordobes",
+      "email": "zcordobes22@trellian.com",
+      "position": "Geologist III",
+      "salary": 58869
+    },
+    {
+      "id": 76,
+      "name": "Loy Roth",
+      "email": "lroth23@godaddy.com",
+      "position": "Mechanical Systems Engineer",
+      "salary": 63023
+    },
+    {
+      "id": 77,
+      "name": "Dexter Profit",
+      "email": "dprofit24@csmonitor.com",
+      "position": "Systems Administrator III",
+      "salary": 78397
+    },
+    {
+      "id": 78,
+      "name": "Charis Sima",
+      "email": "csima25@comsenz.com",
+      "position": "VP Quality Control",
+      "salary": 66325
+    },
+    {
+      "id": 79,
+      "name": "Abe Craiker",
+      "email": "acraiker26@uol.com.br",
+      "position": "Research Nurse",
+      "salary": 75728
+    },
+    {
+      "id": 80,
+      "name": "Celinda Cavalier",
+      "email": "ccavalier27@accuweather.com",
+      "position": "Research Associate",
+      "salary": 73805
+    },
+    {
+      "id": 81,
+      "name": "Minne Jonathon",
+      "email": "mjonathon28@sun.com",
+      "position": "Dental Hygienist",
+      "salary": 78842
+    },
+    {
+      "id": 82,
+      "name": "Constantine Drane",
+      "email": "cdrane29@artisteer.com",
+      "position": "Help Desk Technician",
+      "salary": 75212
+    },
+    { "id": 83, "name": "Arron Dy", "email": "ady2a@studiopress.com", "position": "Statistician III", "salary": 36879 },
+    {
+      "id": 84,
+      "name": "Umberto Weale",
+      "email": "uweale2b@wix.com",
+      "position": "Account Representative II",
+      "salary": 18149
+    },
+    {
+      "id": 85,
+      "name": "Nixie Balazot",
+      "email": "nbalazot2c@answers.com",
+      "position": "Nurse Practicioner",
+      "salary": 89321
+    },
+    {
+      "id": 86,
+      "name": "Tootsie Ridout",
+      "email": "tridout2d@usnews.com",
+      "position": "Biostatistician I",
+      "salary": 71371
+    },
+    {
+      "id": 87,
+      "name": "Remus Tregien",
+      "email": "rtregien2e@timesonline.co.uk",
+      "position": "Environmental Tech",
+      "salary": 98364
+    },
+    {
+      "id": 88,
+      "name": "Lacy Downes",
+      "email": "ldownes2f@usatoday.com",
+      "position": "VP Accounting",
+      "salary": 81583
+    },
+    {
+      "id": 89,
+      "name": "Otis Bumpass",
+      "email": "obumpass2g@sakura.ne.jp",
+      "position": "Analyst Programmer",
+      "salary": 45422
+    },
+    {
+      "id": 90,
+      "name": "Marylynne Edie",
+      "email": "medie2h@columbia.edu",
+      "position": "Payment Adjustment Coordinator",
+      "salary": 23383
+    },
+    {
+      "id": 91,
+      "name": "Silvain Hammor",
+      "email": "shammor2i@marketwatch.com",
+      "position": "Administrative Assistant II",
+      "salary": 81083
+    },
+    {
+      "id": 92,
+      "name": "Dar Ivanyushkin",
+      "email": "divanyushkin2j@rambler.ru",
+      "position": "Cost Accountant",
+      "salary": 35120
+    },
+    { "id": 93, "name": "Eveleen Slowan", "email": "eslowan2k@who.int", "position": "VP Marketing", "salary": 30416 },
+    {
+      "id": 94,
+      "name": "Kippy Snyder",
+      "email": "ksnyder2l@rakuten.co.jp",
+      "position": "Software Test Engineer II",
+      "salary": 79846
+    },
+    { "id": 95, "name": "Esme Law", "email": "elaw2m@ftc.gov", "position": "Financial Analyst", "salary": 32104 },
+    {
+      "id": 96,
+      "name": "Friederike Hatliffe",
+      "email": "fhatliffe2n@shinystat.com",
+      "position": "Food Chemist",
+      "salary": 20262
+    },
+    {
+      "id": 97,
+      "name": "Christal Boshard",
+      "email": "cboshard2o@yellowbook.com",
+      "position": "Marketing Manager",
+      "salary": 96417
+    },
+    { "id": 98, "name": "Eadie Ellul", "email": "eellul2p@hud.gov", "position": "Technical Writer", "salary": 38257 },
+    { "id": 99, "name": "Emmy Gingold", "email": "egingold2q@a8.net", "position": "Web Developer I", "salary": 70739 },
+    {
+      "id": 100,
+      "name": "Moise Benedyktowicz",
+      "email": "mbenedyktowicz2r@adobe.com",
+      "position": "Structural Analysis Engineer",
+      "salary": 78725
+    }
+  ]
 }

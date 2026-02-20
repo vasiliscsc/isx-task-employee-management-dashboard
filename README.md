@@ -30,4 +30,6 @@ npm run api
 
 ## Notes
 
-MUI version ^6 was chosen for this submission. To that end, I used Next.js version ^15 as latest stable (version ^16) is not supported by MUI version ^6.
+- MUI version ^6 was chosen for this submission. To that end, I used Next.js version ^15 as latest stable (version ^16) is not supported by MUI version ^6.
+- json-server was chosen as the mock api backend.
+- https://www.mockaroo.com/ was used to generate the mock data.
