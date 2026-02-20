@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import { Alert, Box, CircularProgress, Stack, Typography, useColorScheme } from "@mui/material";
+import { Alert, Box, CircularProgress, Stack, Typography, useColorScheme, Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { fetchEmployees } from "@/redux/employees/employeesSlice";
 import { Employee } from "@/types";
+import CreateEmployeeDialog from "./CreateEmployeeDialog";
 
 export default function EmployeesDataGrid() {
   // MUI colorSchemes: `mode` is undefined on first render (SSR).
@@ -15,6 +16,7 @@ export default function EmployeesDataGrid() {
 
   const dispatch = useAppDispatch();
   const { items, status, error } = useAppSelector((s) => s.employees);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   useEffect(() => {
     // status is only idle when employees haven't been fetched yet. Only fetch in that case
@@ -46,7 +48,23 @@ export default function EmployeesDataGrid() {
       spacing={2}
       sx={{ p: 3 }}
     >
-      <Typography variant="h5">Employees</Typography>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Typography variant="h5">Employees</Typography>
+        <Button
+          variant="contained"
+          onClick={() => setCreateDialogOpen(true)}
+        >
+          Add employee
+        </Button>
+      </Stack>
+      <CreateEmployeeDialog
+        open={createDialogOpen}
+        onClose={() => setCreateDialogOpen(false)}
+      />
 
       {status === "failed" && <Alert severity="error">{error ?? "Failed to load employees"}</Alert>}
 

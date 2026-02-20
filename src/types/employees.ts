@@ -7,3 +7,6 @@ export interface Employee {
   position: string;
   salary: number;
 }
+
+// For create payloads (json-server can generate id on POST)
+export type EmployeeInput = Omit<Employee, "id">;
