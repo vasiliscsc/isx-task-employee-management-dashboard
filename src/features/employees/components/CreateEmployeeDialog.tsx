@@ -123,7 +123,7 @@ export default function CreateEmployeeDialog({ open, onClose }: Props) {
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={!canSubmit}
+          disabled={isSubmitting}
         >
           {isSubmitting ? "Creating..." : "Create"}
         </Button>
