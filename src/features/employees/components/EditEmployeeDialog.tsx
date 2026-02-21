@@ -140,7 +140,7 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={!isSubmitting && !!employee}
+          disabled={isSubmitting || !employee}
         >
           {isSubmitting ? "Saving..." : "Save"}
         </Button>
