@@ -2,8 +2,9 @@
 
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { deleteEmployee } from "@/redux/employees/employeesSlice";
+import { clearEmployeeMutations, deleteEmployee } from "@/redux/employees/employeesSlice";
 import type { Employee } from "@/types";
+import { useEffect } from "react";
 
 type Props = {
   open: boolean;
@@ -14,6 +15,10 @@ type Props = {
 export default function DeleteEmployeeDialog({ open, onClose, employee }: Props) {
   const dispatch = useAppDispatch();
   const { deleteStatus, deleteError } = useAppSelector((s) => s.employees);
+
+  useEffect(() => {
+    if (open) dispatch(clearEmployeeMutations());
+  }, [open]);
 
   const isDeleting = deleteStatus === "loading";
 

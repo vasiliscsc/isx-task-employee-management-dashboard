@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { updateEmployee } from "@/redux/employees/employeesSlice";
+import { clearEmployeeMutations, updateEmployee } from "@/redux/employees/employeesSlice";
 import type { Employee, EmployeeInput } from "@/types";
 import EmployeeFormFields from "./EmployeeFormFields";
 import { validateEmployeeInput } from "../lib/validateEmployeeInput";
@@ -31,6 +31,10 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
 
   const [form, setForm] = useState<EmployeeInput>(emptyForm);
   const [touched, setTouched] = useState<Touched>({});
+
+  useEffect(() => {
+    if (open) dispatch(clearEmployeeMutations());
+  }, [open]);
 
   useEffect(() => {
     // Reset on close (and clear touched each time it opens/closes)

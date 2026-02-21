@@ -58,7 +58,16 @@ export const fetchEmployees = createAsyncThunk<Employee[]>("employees/fetchEmplo
 const employeesSlice = createSlice({
   name: "employees",
   initialState,
-  reducers: {},
+  reducers: {
+    clearEmployeeMutations(state) {
+      state.createStatus = "idle";
+      state.createError = null;
+      state.updateStatus = "idle";
+      state.updateError = null;
+      state.deleteStatus = "idle";
+      state.deleteError = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchEmployees.pending, (state) => {
@@ -112,9 +121,11 @@ const employeesSlice = createSlice({
       })
       .addCase(deleteEmployee.rejected, (state, action) => {
         state.deleteStatus = "failed";
-        state.deleteError = action.error.message ?? "Failed to update employee";
+        state.deleteError = action.error.message ?? "Failed to delete employee";
       });
   },
 });
+
+export const { clearEmployeeMutations } = employeesSlice.actions;
 
 export default employeesSlice.reducer;
