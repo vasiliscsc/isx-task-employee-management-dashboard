@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { GridActionsCellItem, DataGrid, type GridColDef, GridRowParams } from "@mui/x-data-grid";
+import {
+  GridPaginationModel,
+  GridSortModel,
+  GridFilterModel,
+  GridActionsCellItem,
+  DataGrid,
+  type GridColDef,
+  GridRowParams,
+} from "@mui/x-data-grid";
 import { Alert, Box, CircularProgress, Stack, Typography, useColorScheme, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { fetchEmployees } from "@/redux/employees/employeesSlice";
-import { Employee } from "@/types";
+import { fetchEmployees, setEmployeesQuery } from "@/redux/employees/employeesSlice";
+import { Employee, EmployeesQuery } from "@/types";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateEmployeeDialog from "./CreateEmployeeDialog";
@@ -120,18 +128,34 @@ export default function EmployeesDataGrid() {
   // Guard rendering to prevent hydration mismatch.
   // https://mui.com/material-ui/customization/dark-mode/#toggling-color-mode
   const { mode } = useColorScheme();
-
   const dispatch = useAppDispatch();
-  const { items, status, error } = useAppSelector((s) => s.employees);
+  const { items, status, error, total, query } = useAppSelector((s) => s.employees);
   const { activeDialog, selectedEmployee, openCreateDialog, openEditDialog, openDeleteDialog, closeDialog } =
     useEmployeeDialogs();
 
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({ page: 0, pageSize: 10 });
+  const [sortModel, setSortModel] = useState<GridSortModel>([]);
+  const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [], quickFilterValues: [] });
+
+  const newQuery: EmployeesQuery = useMemo(() => {
+    const sort = sortModel[0];
+    const search = filterModel.quickFilterValues?.[0] ?? "";
+    return {
+      page: paginationModel.page,
+      pageSize: paginationModel.pageSize,
+      sortField: sort?.field as keyof Employee | undefined,
+      sortDir: sort?.sort ?? undefined,
+      search,
+    };
+  }, [paginationModel, sortModel, filterModel]);
+
   useEffect(() => {
-    // status is only idle when employees haven't been fetched yet. Only fetch in that case
-    if (status === "idle") {
-      dispatch(fetchEmployees());
-    }
-  }, [dispatch, status]);
+    dispatch(setEmployeesQuery(newQuery));
+  }, [dispatch, newQuery]);
+
+  useEffect(() => {
+    dispatch(fetchEmployees(query));
+  }, [dispatch, query]);
 
   const columns = useMemo(
     () => buildEmployeeColumns(openEditDialog, openDeleteDialog),
@@ -174,19 +198,26 @@ export default function EmployeesDataGrid() {
         >
           {mode ? (
             <DataGrid<Employee>
-              rows={items}
               columns={columns}
+              rows={items}
+              rowCount={total}
+              paginationMode="server"
+              sortingMode="server"
+              filterMode="server"
+              paginationModel={paginationModel}
+              onPaginationModelChange={setPaginationModel}
+              sortModel={sortModel}
+              onSortModelChange={setSortModel}
+              filterModel={filterModel}
+              onFilterModelChange={setFilterModel}
               loading={status === "loading"}
               disableRowSelectionOnClick
-              pagination
-              initialState={{
-                pagination: { paginationModel: { page: 0, pageSize: 10 } },
-              }}
+              // json-server only supports a small sub-set of column filter operations so I'm keeping the feature disabled
+              disableColumnFilter
               pageSizeOptions={[5, 10, 25, 50]}
               showToolbar
               slotProps={{
                 toolbar: {
-                  showQuickFilter: true,
                   quickFilterProps: { debounceMs: 300 },
                 },
               }}

@@ -1,9 +1,27 @@
 import api from "./api";
-import type { Employee, EmployeeId, EmployeeInput } from "@/types";
+import type { Employee, EmployeeId, EmployeeInput, EmployeesQuery } from "@/types";
 
-export async function fetchEmployeesApi(): Promise<Employee[]> {
-  const res = await api.get<Employee[]>("/employees");
-  return res.data;
+export async function fetchEmployeesApi(query: EmployeesQuery): Promise<{ items: Employee[]; total: number }> {
+  const params: Record<string, string | number> = {
+    _page: query.page + 1, // json-server is 1-based and DataGrid is 0 based
+    _limit: query.pageSize,
+  };
+
+  if (query.sortField && query.sortDir) {
+    params._sort = String(query.sortField);
+    params._order = query.sortDir;
+  }
+
+  if (query.search?.trim()) {
+    params.q = query.search.trim();
+  }
+
+  const res = await api.get<Employee[]>("/employees", { params });
+
+  const totalHeader = res.headers["x-total-count"];
+  const total = totalHeader ? Number(totalHeader) : res.data.length;
+
+  return { items: res.data, total };
 }
 
 export async function createEmployeeApi(employee: EmployeeInput): Promise<Employee> {

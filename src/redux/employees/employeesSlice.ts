@@ -1,9 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { Employee, EmployeeId, EmployeeInput } from "@/types";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Employee, EmployeeId, EmployeeInput, EmployeesQuery } from "@/types";
 import { createEmployeeApi, deleteEmployeeApi, fetchEmployeesApi, updateEmployeeApi } from "@/services/employees";
+import { RootState } from "../store";
 
 type EmployeesState = {
   items: Employee[];
+  query: EmployeesQuery;
+  currentRequestId: string | null;
+  total: number;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 
@@ -19,6 +23,12 @@ type EmployeesState = {
 
 const initialState: EmployeesState = {
   items: [],
+  query: {
+    page: 0,
+    pageSize: 10,
+  },
+  currentRequestId: null,
+  total: 0,
   status: "idle",
   error: null,
 
@@ -32,28 +42,54 @@ const initialState: EmployeesState = {
   deleteError: null,
 };
 
-export const createEmployee = createAsyncThunk<Employee, EmployeeInput>(
+const refetchEmployees = async (thunkAPI: { getState: () => RootState; dispatch: any }) => {
+  const q = thunkAPI.getState().employees.query;
+  await thunkAPI.dispatch(fetchEmployees(q));
+};
+
+export const createEmployee = createAsyncThunk<Employee, EmployeeInput, { state: RootState }>(
   "employees/createEmployee",
-  async (employee) => {
-    return await createEmployeeApi(employee);
+  async (employee, thunkAPI) => {
+    // this throws if unsuccessful so the query refetch will not happen
+    const created = await createEmployeeApi(employee);
+
+    await refetchEmployees(thunkAPI);
+
+    return created;
   },
 );
 
-export const updateEmployee = createAsyncThunk<Employee, { id: EmployeeId; changes: EmployeeInput }>(
-  "employees/updateEmployee",
-  async ({ id, changes }) => {
-    return await updateEmployeeApi(id, changes);
+export const updateEmployee = createAsyncThunk<
+  Employee,
+  { id: EmployeeId; changes: EmployeeInput },
+  { state: RootState }
+>("employees/updateEmployee", async ({ id, changes }, thunkAPI) => {
+  // this throws if unsuccessful so the query refetch will not happen
+  const updated = await updateEmployeeApi(id, changes);
+
+  await refetchEmployees(thunkAPI);
+
+  return updated;
+});
+
+export const deleteEmployee = createAsyncThunk<EmployeeId, EmployeeId, { state: RootState }>(
+  "employees/deleteEmployee",
+  async (id, thunkAPI) => {
+    // this throws if unsuccessful so the query refetch will not happen
+    await deleteEmployeeApi(id);
+
+    await refetchEmployees(thunkAPI);
+
+    return id;
   },
 );
 
-export const deleteEmployee = createAsyncThunk<EmployeeId, EmployeeId>("employees/deleteEmployee", async (id) => {
-  await deleteEmployeeApi(id);
-  return id;
-});
-
-export const fetchEmployees = createAsyncThunk<Employee[]>("employees/fetchEmployees", async () => {
-  return await fetchEmployeesApi();
-});
+export const fetchEmployees = createAsyncThunk<{ items: Employee[]; total: number }, EmployeesQuery>(
+  "employees/fetchEmployees",
+  async (query) => {
+    return await fetchEmployeesApi(query);
+  },
+);
 
 const employeesSlice = createSlice({
   name: "employees",
@@ -67,18 +103,30 @@ const employeesSlice = createSlice({
       state.deleteStatus = "idle";
       state.deleteError = null;
     },
+    setEmployeesQuery(state, action: PayloadAction<EmployeesQuery>) {
+      state.query = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchEmployees.pending, (state) => {
+      .addCase(fetchEmployees.pending, (state, action) => {
         state.status = "loading";
         state.error = null;
+        // overwrite current with new requestId - always keep most fresh request
+        state.currentRequestId = action.meta.requestId;
       })
       .addCase(fetchEmployees.fulfilled, (state, action) => {
+        // guard against potential race conditions
+        if (state.currentRequestId !== action.meta.requestId) return;
+        state.currentRequestId = null;
         state.status = "succeeded";
-        state.items = action.payload;
+        state.items = action.payload.items;
+        state.total = action.payload.total;
       })
       .addCase(fetchEmployees.rejected, (state, action) => {
+        // guard against potential race conditions
+        if (state.currentRequestId !== action.meta.requestId) return;
+        state.currentRequestId = null;
         state.status = "failed";
         state.error = action.error.message ?? "Failed to fetch employees";
       })
@@ -89,8 +137,6 @@ const employeesSlice = createSlice({
       })
       .addCase(createEmployee.fulfilled, (state, action) => {
         state.createStatus = "succeeded";
-        // add new employee to the top so user sees it immediately
-        state.items = [action.payload, ...state.items];
       })
       .addCase(createEmployee.rejected, (state, action) => {
         state.createStatus = "failed";
@@ -103,8 +149,6 @@ const employeesSlice = createSlice({
       })
       .addCase(updateEmployee.fulfilled, (state, action) => {
         state.updateStatus = "succeeded";
-        const idx = state.items.findIndex((e) => e.id === action.payload.id);
-        if (idx !== -1) state.items[idx] = action.payload;
       })
       .addCase(updateEmployee.rejected, (state, action) => {
         state.updateStatus = "failed";
@@ -117,7 +161,6 @@ const employeesSlice = createSlice({
       })
       .addCase(deleteEmployee.fulfilled, (state, action) => {
         state.deleteStatus = "succeeded";
-        state.items = state.items.filter((e) => e.id !== action.payload);
       })
       .addCase(deleteEmployee.rejected, (state, action) => {
         state.deleteStatus = "failed";
@@ -126,6 +169,6 @@ const employeesSlice = createSlice({
   },
 });
 
-export const { clearEmployeeMutations } = employeesSlice.actions;
+export const { clearEmployeeMutations, setEmployeesQuery } = employeesSlice.actions;
 
 export default employeesSlice.reducer;
