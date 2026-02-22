@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import ReduxStoreProvider from "./ReduxStoreProvider";
 import theme from "@/theme";
 import "./globals.css";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <ReduxStoreProvider>{children}</ReduxStoreProvider>
+            <ReduxStoreProvider>
+              <DashboardLayout>{children}</DashboardLayout>
+            </ReduxStoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
