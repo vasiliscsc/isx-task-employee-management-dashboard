@@ -1,6 +1,15 @@
 "use client";
 
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { clearEmployeeMutations, deleteEmployee } from "@/redux/employees/employeesSlice";
 import type { Employee } from "@/types";
@@ -42,11 +51,12 @@ export default function DeleteEmployeeDialog({ open, onClose, employee }: Props)
     >
       <DialogTitle>Delete employee</DialogTitle>
 
-      <DialogContent>
+      <DialogContent sx={{ pt: 2 }}>
         {deleteStatus === "failed" && (
           <Alert
             severity="error"
-            sx={{ mt: 1 }}
+            variant="outlined"
+            sx={{ mb: 3 }}
           >
             {deleteError ?? "Failed to delete employee"}
           </Alert>
@@ -57,10 +67,11 @@ export default function DeleteEmployeeDialog({ open, onClose, employee }: Props)
         </Typography>
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions sx={{ px: 3, pb: 3 }}>
         <Button
           onClick={onClose}
           disabled={isDeleting}
+          color="inherit"
         >
           Cancel
         </Button>
@@ -70,7 +81,13 @@ export default function DeleteEmployeeDialog({ open, onClose, employee }: Props)
           onClick={handleDelete}
           disabled={isDeleting || !employee}
         >
-          {isDeleting ? "Deleting..." : "Delete"}
+          {isDeleting && (
+            <CircularProgress
+              size={18}
+              sx={{ m: "3px" }}
+            />
+          )}
+          {!isDeleting && "Delete"}
         </Button>
       </DialogActions>
     </Dialog>

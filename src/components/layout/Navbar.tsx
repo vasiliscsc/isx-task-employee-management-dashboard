@@ -3,6 +3,7 @@
 import { AppBar, Toolbar, IconButton, Box, Avatar, Stack } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Brand from "./Brand";
+import ThemeToggle from "./ThemeToggle";
 
 type Props = {
   onMenuClick: () => void;
@@ -38,6 +39,8 @@ export default function NavBar({ onMenuClick }: Props) {
           <Brand sx={{ display: { md: "none" } }} />
 
           <Box sx={{ flexGrow: 1 }} />
+
+          <ThemeToggle />
 
           <Avatar
             sx={{

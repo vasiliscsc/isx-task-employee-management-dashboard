@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { GridActionsCellItem, DataGrid, type GridColDef, GridRowParams } from "@mui/x-data-grid";
 import { Alert, Box, CircularProgress, Stack, Typography, useColorScheme, Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { fetchEmployees } from "@/redux/employees/employeesSlice";
 import { Employee } from "@/types";
@@ -17,7 +18,7 @@ function buildEmployeeColumns(
   openDeleteDialog: (e: Employee) => void,
 ): GridColDef<Employee>[] {
   return [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 120 },
     { field: "name", headerName: "Name", flex: 1, minWidth: 160 },
     { field: "email", headerName: "Email", flex: 1, minWidth: 220 },
     { field: "position", headerName: "Position", flex: 1, minWidth: 160 },
@@ -139,10 +140,7 @@ export default function EmployeesDataGrid() {
 
   return (
     <>
-      <Stack
-        spacing={2}
-        sx={{ p: 3 }}
-      >
+      <Stack spacing={2}>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -151,17 +149,29 @@ export default function EmployeesDataGrid() {
           <Typography variant="h5">Employees</Typography>
           <Button
             variant="contained"
+            color="secondary"
             onClick={openCreateDialog}
           >
-            Add employee
+            <AddIcon sx={{ display: { xs: "block", sm: "none" } }} />
+            <Box sx={{ display: { xs: "none", sm: "inline" } }}>Add employee</Box>
           </Button>
         </Stack>
 
         {status === "failed" && (
-          <Alert severity="error">{error ? `Failed to load employees: ${error}` : "Failed to load employees"}</Alert>
+          <Alert
+            severity="error"
+            variant="outlined"
+          >
+            {error ? `Failed to load employees: ${error}` : "Failed to load employees"}
+          </Alert>
         )}
 
-        <Box sx={{ height: 520, width: "100%" }}>
+        <Box
+          sx={{
+            height: "clamp(320px, 70vh, 520px)",
+            width: "100%",
+          }}
+        >
           {mode ? (
             <DataGrid<Employee>
               rows={items}
@@ -183,7 +193,7 @@ export default function EmployeesDataGrid() {
             />
           ) : (
             <Box sx={{ height: "100%", width: "100%", display: "grid", placeItems: "center" }}>
-              <CircularProgress />
+              <CircularProgress color="secondary" />
             </Box>
           )}
         </Box>

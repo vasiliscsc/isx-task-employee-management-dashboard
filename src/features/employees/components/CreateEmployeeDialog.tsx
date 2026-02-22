@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Alert, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { clearEmployeeMutations, createEmployee } from "@/redux/employees/employeesSlice";
 import type { EmployeeInput } from "@/types";
@@ -35,7 +35,7 @@ export default function CreateEmployeeDialog({ open, onClose }: Props) {
     if (open) dispatch(clearEmployeeMutations());
   }, [open]);
 
-  // Reset on close (and clear touched each time it opens/closes)
+  // Reset on close (and clear touched each time it closes)
   useEffect(() => {
     if (!open) {
       setTouched({});
@@ -88,15 +88,16 @@ export default function CreateEmployeeDialog({ open, onClose }: Props) {
         firstInputRef.current?.focus();
       }}
       fullWidth
-      maxWidth="sm"
+      maxWidth="xs"
     >
-      <DialogTitle>Create employee</DialogTitle>
+      <DialogTitle sx={{ pb: 1 }}>Create employee</DialogTitle>
 
-      <DialogContent>
+      <DialogContent sx={{ pt: 2 }}>
         {createStatus === "failed" && (
           <Alert
             severity="error"
-            sx={{ mt: 1 }}
+            variant="outlined"
+            sx={{ mb: 3 }}
           >
             {createError ?? "Failed to create employee"}
           </Alert>
@@ -113,19 +114,27 @@ export default function CreateEmployeeDialog({ open, onClose }: Props) {
         />
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions sx={{ px: 3, pb: 3 }}>
         <Button
           onClick={onClose}
           disabled={isSubmitting}
+          color="inherit"
         >
           Cancel
         </Button>
         <Button
           variant="contained"
+          color="secondary"
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Creating..." : "Create"}
+          {isSubmitting && (
+            <CircularProgress
+              size={18}
+              sx={{ m: "3px" }}
+            />
+          )}
+          {!isSubmitting && "Create"}
         </Button>
       </DialogActions>
     </Dialog>

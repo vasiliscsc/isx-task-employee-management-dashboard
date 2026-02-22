@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Alert, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { clearEmployeeMutations, updateEmployee } from "@/redux/employees/employeesSlice";
 import type { Employee, EmployeeInput } from "@/types";
@@ -105,15 +105,16 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
         firstInputRef.current?.focus();
       }}
       fullWidth
-      maxWidth="sm"
+      maxWidth="xs"
     >
       <DialogTitle>Edit employee</DialogTitle>
 
-      <DialogContent>
+      <DialogContent sx={{ pt: 2 }}>
         {updateStatus === "failed" && (
           <Alert
             severity="error"
-            sx={{ mt: 1 }}
+            variant="outlined"
+            sx={{ mb: 3 }}
           >
             {updateError ?? "Failed to edit employee"}
           </Alert>
@@ -130,19 +131,27 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
         />
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions sx={{ px: 3, pb: 3 }}>
         <Button
           onClick={onClose}
           disabled={isSubmitting}
+          color="inherit"
         >
           Cancel
         </Button>
         <Button
           variant="contained"
+          color="secondary"
           onClick={handleSubmit}
           disabled={isSubmitting || !employee}
         >
-          {isSubmitting ? "Saving..." : "Save"}
+          {isSubmitting && (
+            <CircularProgress
+              size={18}
+              sx={{ m: "3px" }}
+            />
+          )}
+          {!isSubmitting && "Save"}
         </Button>
       </DialogActions>
     </Dialog>

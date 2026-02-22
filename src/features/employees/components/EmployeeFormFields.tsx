@@ -30,11 +30,12 @@ export default function EmployeeFormFields({
 
   return (
     <Stack
-      spacing={2}
+      spacing={3}
       sx={{ mt: 1 }}
     >
       <TextField
         label="Name"
+        size="small"
         value={form.name}
         onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
         onBlur={() => markTouched("name")}
@@ -47,6 +48,7 @@ export default function EmployeeFormFields({
 
       <TextField
         label="Email"
+        size="small"
         value={form.email}
         onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
         onBlur={() => markTouched("email")}
@@ -58,6 +60,7 @@ export default function EmployeeFormFields({
 
       <TextField
         label="Position"
+        size="small"
         value={form.position}
         onChange={(e) => setForm((p) => ({ ...p, position: e.target.value }))}
         onBlur={() => markTouched("position")}
@@ -69,6 +72,7 @@ export default function EmployeeFormFields({
 
       <TextField
         label="Salary"
+        size="small"
         type="number"
         value={form.salary}
         onChange={(e) => setForm((p) => ({ ...p, salary: Number(e.target.value) }))}
