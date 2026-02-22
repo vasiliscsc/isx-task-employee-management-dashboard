@@ -7,6 +7,7 @@ import { clearEmployeeMutations, updateEmployee } from "@/redux/employees/employ
 import type { Employee, EmployeeInput } from "@/types";
 import EmployeeFormFields from "./EmployeeFormFields";
 import { validateEmployeeInput } from "../lib/validateEmployeeInput";
+import { isSameEmployeeInput, toEmployeeInput } from "../lib/isSameEmployeeInput";
 
 type Props = {
   open: boolean;
@@ -42,7 +43,6 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
       setTouched({});
       setForm(emptyForm);
     } else {
-      // Employee should not be null in the edit form. If it is, it is some sort of incorrect state
       if (employee) {
         // prefill the form with the selected employee's data
         setForm({
@@ -57,11 +57,15 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
 
   const errors = useMemo(() => validateEmployeeInput(form), [form]);
 
-  if (open && !employee) return null;
+  // Employee should not be null in the edit form. If it is, it is some sort of incorrect state
+  if (!employee) return null;
 
+  const initial = toEmployeeInput(employee);
+
+  const isDirty = employee ? !isSameEmployeeInput(initial, form) : false;
   const isSubmitting = updateStatus === "loading";
   const isValid = Object.keys(errors).length === 0;
-  const canSubmit = isValid && !isSubmitting && !!employee;
+  const canSubmit = isDirty && isValid && !isSubmitting && !!employee;
 
   const markAllTouched = () => {
     const allTouched: Partial<Record<keyof EmployeeInput, boolean>> = {};
@@ -143,7 +147,7 @@ export default function EditEmployeeDialog({ open, onClose, employee }: Props) {
           variant="contained"
           color="secondary"
           onClick={handleSubmit}
-          disabled={isSubmitting || !employee}
+          disabled={isSubmitting || !employee || !isDirty}
         >
           {isSubmitting && (
             <CircularProgress
