@@ -27,7 +27,7 @@ export default function DeleteEmployeeDialog({ open, onClose, employee }: Props)
 
   useEffect(() => {
     if (open) dispatch(clearEmployeeMutations());
-  }, [open]);
+  }, [open, dispatch]);
 
   const isDeleting = deleteStatus === "loading";
 

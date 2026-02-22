@@ -64,7 +64,7 @@ const theme = createTheme({
 
   components: {
     MuiCssBaseline: {
-      styleOverrides: (themeParam: any) => ({
+      styleOverrides: (themeParam) => ({
         ".MuiDataGrid-panel .MuiCheckbox-root.MuiCheckbox-colorPrimary": {
           color: themeParam.palette.secondary.main,
         },

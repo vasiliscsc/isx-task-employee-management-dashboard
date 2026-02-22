@@ -17,6 +17,7 @@ export function isSameEmployeeInput(e1: EmployeeInput, e2: EmployeeInput): boole
 }
 
 export function toEmployeeInput(e: Employee): EmployeeInput {
-  let { id, ...employeeInput } = e;
+  const { id: _id, ...employeeInput } = e;
+  void _id; // satisfy eslint
   return employeeInput;
 }

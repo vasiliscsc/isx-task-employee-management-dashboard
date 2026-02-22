@@ -33,7 +33,7 @@ export default function CreateEmployeeDialog({ open, onClose }: Props) {
 
   useEffect(() => {
     if (open) dispatch(clearEmployeeMutations());
-  }, [open]);
+  }, [open, dispatch]);
 
   // Reset on close (and clear touched each time it closes)
   useEffect(() => {

@@ -42,18 +42,14 @@ const initialState: EmployeesState = {
   deleteError: null,
 };
 
-const refetchEmployees = async (thunkAPI: { getState: () => RootState; dispatch: any }) => {
-  const q = thunkAPI.getState().employees.query;
-  await thunkAPI.dispatch(fetchEmployees(q));
-};
-
 export const createEmployee = createAsyncThunk<Employee, EmployeeInput, { state: RootState }>(
   "employees/createEmployee",
   async (employee, thunkAPI) => {
     // this throws if unsuccessful so the query refetch will not happen
     const created = await createEmployeeApi(employee);
 
-    await refetchEmployees(thunkAPI);
+    const q = thunkAPI.getState().employees.query;
+    await thunkAPI.dispatch(fetchEmployees(q));
 
     return created;
   },
@@ -67,7 +63,8 @@ export const updateEmployee = createAsyncThunk<
   // this throws if unsuccessful so the query refetch will not happen
   const updated = await updateEmployeeApi(id, changes);
 
-  await refetchEmployees(thunkAPI);
+  const q = thunkAPI.getState().employees.query;
+  await thunkAPI.dispatch(fetchEmployees(q));
 
   return updated;
 });
@@ -78,7 +75,8 @@ export const deleteEmployee = createAsyncThunk<EmployeeId, EmployeeId, { state: 
     // this throws if unsuccessful so the query refetch will not happen
     await deleteEmployeeApi(id);
 
-    await refetchEmployees(thunkAPI);
+    const q = thunkAPI.getState().employees.query;
+    await thunkAPI.dispatch(fetchEmployees(q));
 
     return id;
   },
@@ -135,7 +133,7 @@ const employeesSlice = createSlice({
         state.createStatus = "loading";
         state.createError = null;
       })
-      .addCase(createEmployee.fulfilled, (state, action) => {
+      .addCase(createEmployee.fulfilled, (state) => {
         state.createStatus = "succeeded";
       })
       .addCase(createEmployee.rejected, (state, action) => {
@@ -147,7 +145,7 @@ const employeesSlice = createSlice({
         state.updateStatus = "loading";
         state.updateError = null;
       })
-      .addCase(updateEmployee.fulfilled, (state, action) => {
+      .addCase(updateEmployee.fulfilled, (state) => {
         state.updateStatus = "succeeded";
       })
       .addCase(updateEmployee.rejected, (state, action) => {
@@ -159,7 +157,7 @@ const employeesSlice = createSlice({
         state.deleteStatus = "loading";
         state.deleteError = null;
       })
-      .addCase(deleteEmployee.fulfilled, (state, action) => {
+      .addCase(deleteEmployee.fulfilled, (state) => {
         state.deleteStatus = "succeeded";
       })
       .addCase(deleteEmployee.rejected, (state, action) => {
